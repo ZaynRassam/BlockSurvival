@@ -17,7 +17,7 @@ public class ProjectileMovement : MonoBehaviour
     void Update()
     {
         FireProjectile();
-        offScreen();
+        //offScreen();
     }
 
     void FireProjectile()
@@ -30,6 +30,14 @@ public class ProjectileMovement : MonoBehaviour
     {
         // Check if the object is offscreen
         if (!GetComponent<Renderer>().isVisible)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
         }

@@ -65,8 +65,25 @@ public class EnemySpawner : MonoBehaviour
                 y = player.transform.position.y + minDistance * Mathf.Sin(angle);
             }
 
-            GameObject spawnedPrefab = Instantiate(enemy, new Vector2(x, y), Quaternion.Euler(0,90,0));
+            GameObject spawnedPrefab = Instantiate(enemy, new Vector2(x, y), Quaternion.identity);
+            setRotationToZero(spawnedPrefab);
             enemiesList.Add(spawnedPrefab);
+        }
+    }
+
+    private GameObject setRotationToZero(GameObject ob)
+    {
+        Debug.Log(ob.transform.rotation.x);
+        Debug.Log(ob.transform.rotation.y);
+        Debug.Log(ob.transform.rotation.z);
+        if (ob.transform.rotation.x == -90)
+        {
+            ob.transform.rotation = new Quaternion(0, 0, 0, 0);
+            return ob;
+        }
+        else
+        {
+            return ob;
         }
     }
 }

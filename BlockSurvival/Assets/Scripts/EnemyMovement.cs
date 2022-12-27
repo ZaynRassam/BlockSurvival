@@ -6,9 +6,11 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     // Declare a variable for the player GameObject
+    [SerializeField] Score scoreTracker;
     public Transform target;
     private NavMeshAgent agent;
-    private int health = 1;
+    private int health = 2;
+    private float bulletHeadshotChance = 0.5f;
 
     void Start()
     {
@@ -27,7 +29,19 @@ public class EnemyMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            Destroy(other.gameObject);
+            bulletCollision(other);
+        }
+    }
+
+    void bulletCollision(Collider2D col)
+    {
+        if (Random.value < bulletHeadshotChance)
+        {
+            health -= 2;
+            Debug.Log("HEADSHOT");
+        }
+        else
+        {
             health--;
         }
     }
@@ -37,6 +51,7 @@ public class EnemyMovement : MonoBehaviour
         if (health == 0)
         {
             Destroy(gameObject);
+            scoreTracker.score++;
         }
     }
 }
