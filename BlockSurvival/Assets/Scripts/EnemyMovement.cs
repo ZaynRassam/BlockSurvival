@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     // Declare a variable for the player GameObject
-    [SerializeField] Score scoreTracker;
+    private Score logicManager;
     public Transform target;
     private NavMeshAgent agent;
     private int health = 2;
@@ -14,6 +14,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
+        logicManager = GameObject.FindWithTag("LogicManager").GetComponent<Score>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -51,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
         if (health == 0)
         {
             Destroy(gameObject);
-            scoreTracker.score++;
+            logicManager.score++;
         }
     }
 }
