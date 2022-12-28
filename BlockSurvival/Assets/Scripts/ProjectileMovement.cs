@@ -5,7 +5,10 @@ using UnityEngine;
 public class ProjectileMovement : MonoBehaviour
 {
     // Speed at which the object moves
-    public float speed = 5f;
+    public float speed = 10f;
+    private int bulletMaxCollision = 1;
+    private int sniperBulletMaxCollision = 2;
+    private int numberOfCollisions;
 
     // Use this for initialization
     void Start()
@@ -17,7 +20,6 @@ public class ProjectileMovement : MonoBehaviour
     void Update()
     {
         FireProjectile();
-        //offScreen();
     }
 
     void FireProjectile()
@@ -37,9 +39,32 @@ public class ProjectileMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Wall")
         {
             Destroy(gameObject);
+        }
+        if (other.gameObject.tag == "Enemy")
+        {
+            numberOfCollisions++;
+            MaxedCollisionsReached();
+        }
+    }
+
+    void MaxedCollisionsReached()
+    {
+        if (gameObject.tag == "Bullet")
+        {
+            if (numberOfCollisions >= bulletMaxCollision)
+            {
+                Destroy(gameObject);
+            }
+        }
+        if (gameObject.tag == "SniperBullet")
+        {
+            if (numberOfCollisions >= sniperBulletMaxCollision)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -17,7 +17,8 @@ public class EnemySpawner : MonoBehaviour
     // Declare a variable for the minimum distance from the player
     public float minDistance;
     // Declare a variable to store the current number of prefabs that have been spawned
-    private int maxNumberEnemies = 5;
+    public int maxNumberEnemies = 10;
+    private float spawnInterval = 5;
 
     public List<GameObject> enemiesList = new List<GameObject>();
 
@@ -28,17 +29,28 @@ public class EnemySpawner : MonoBehaviour
 
     public void Update()
     {
+        changeSpawnIntervalTime();
         enemiesList.RemoveAll(GameObject => GameObject == null);
     }
 
 
     // Function to start the timer
     public void StartTimer(GameObject enemy)
-    {
-        InvokeRepeating("SpawnPrefab", 0, Random.Range(0f, 5f));
+    { 
+        InvokeRepeating("SpawnPrefab", 0, Random.Range(0f, spawnInterval));
     }
 
-
+    void changeSpawnIntervalTime()
+    {
+        if (enemiesList.Count > 5)
+        {
+            spawnInterval = 10f;
+        }
+        else
+        {
+            spawnInterval = 5f;
+        }
+    }
 
     // Function to spawn the prefab
     public void SpawnPrefab()
@@ -73,9 +85,6 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject setRotationToZero(GameObject ob)
     {
-        Debug.Log(ob.transform.rotation.x);
-        Debug.Log(ob.transform.rotation.y);
-        Debug.Log(ob.transform.rotation.z);
         if (ob.transform.rotation.x == -90)
         {
             ob.transform.rotation = new Quaternion(0, 0, 0, 0);

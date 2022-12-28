@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
+    [SerializeField] GameObject sniper;
 
     public int score;
+    public bool rareDropSpawned = false;
 
     void Awake()
     {
@@ -21,15 +23,15 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(score);
         RareDrop();
     }
 
     void RareDrop()
     {
-        if (score > 3)
+        if (score > 1 && !rareDropSpawned)
         {
-            Debug.Log("Rare Drop");
+            GameObject spawnedPrefab = Instantiate(sniper, new Vector2(7, -1), Quaternion.identity);
+            rareDropSpawned = true;
         }
     }
 }

@@ -7,22 +7,15 @@ public class EnemyMovement : MonoBehaviour
 {
     // Declare a variable for the player GameObject
     private Score logicManager;
-    public Transform target;
-    private NavMeshAgent agent;
-    private int health = 2;
-    private float bulletHeadshotChance = 0.5f;
+    public int health = 2;
+    private float headshotChance = 0.2f;
 
     void Start()
     {
         logicManager = GameObject.FindWithTag("LogicManager").GetComponent<Score>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
     }
     private void Update()
     {
-        agent.SetDestination(target.position);
         deleteEnemyIfHealthZero();
     }
 
@@ -32,14 +25,30 @@ public class EnemyMovement : MonoBehaviour
         {
             bulletCollision(other);
         }
+
+        if (other.gameObject.tag == "SniperBullet")
+        {
+            sniperBulletCollision(other);
+        }
     }
 
     void bulletCollision(Collider2D col)
     {
-        if (Random.value < bulletHeadshotChance)
+        if (Random.value < headshotChance)
         {
             health -= 2;
-            Debug.Log("HEADSHOT");
+        }
+        else
+        {
+            health--;
+        }
+    }
+
+    void sniperBulletCollision(Collider2D col)
+    {
+        if (Random.value < headshotChance)
+        {
+            health -= 2;
         }
         else
         {
@@ -49,7 +58,7 @@ public class EnemyMovement : MonoBehaviour
 
     void deleteEnemyIfHealthZero()
     {
-        if (health == 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
             logicManager.score++;

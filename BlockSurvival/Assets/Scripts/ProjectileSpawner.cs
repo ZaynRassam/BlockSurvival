@@ -5,7 +5,9 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour
 {
     // Public field for the prefab to spawn
-    public GameObject prefab;
+    public GameObject bullet;
+    public GameObject sniperBullet;
+    public PickUpSniper sniperScript;
     public Transform playerTransform;
 
     void Start()
@@ -15,11 +17,22 @@ public class ProjectileSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // Check if the mouse button has been pressed
         if (Input.GetMouseButtonDown(0))
         {
-            // Create an instance of the prefab and set its transform to match the player's transform
-            GameObject spawnedPrefab = Instantiate(prefab, playerTransform.position, playerTransform.rotation);
+            if (sniperScript.sniperActive)
+            {
+                GameObject spawnedPrefab = Instantiate(sniperBullet, playerTransform.position, playerTransform.rotation);
+                Debug.Log(sniperScript.sniperActive);
+
+            }
+            else
+            {
+                GameObject spawnedPrefab = Instantiate(bullet, playerTransform.position, playerTransform.rotation);
+                Debug.Log(sniperScript.sniperActive);
+
+            }
         }
     }
 }
