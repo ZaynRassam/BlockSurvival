@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5518944234745644997}
   - component: {fileID: 5732783019740520490}
   - component: {fileID: 7797716241681574213}
+  - component: {fileID: 4999976557411334341}
   m_Layer: 0
   m_Name: sniper
   m_TagString: Sniper
@@ -133,3 +134,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4999976557411334341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6791941865978295457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c1190ef97be346973170f0e93d04d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  sniperBullet: {fileID: 840750153681350861, guid: e6465655e7e809b43a66b42d47a92559, type: 3}
+  activeWeaponScript: {fileID: 0}

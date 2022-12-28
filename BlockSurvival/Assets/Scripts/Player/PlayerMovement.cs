@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
     // Speed at which the player moves
     public float speed = 30f;
+    public int playerHealth = 5;
 
     private Rigidbody2D rb;
 
@@ -18,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
         LookAtMouse();
+        ifPlayerHealthZero();
     }
 
     private void Movement()
@@ -46,11 +50,20 @@ public class PlayerMovement : MonoBehaviour
         transform.up = direction;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("Game Over");
+            playerHealth--;
+        }
+    }
+
+    void ifPlayerHealthZero()
+    {
+        if (playerHealth <= 0)
+        {
+            Debug.Log("GameOver");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

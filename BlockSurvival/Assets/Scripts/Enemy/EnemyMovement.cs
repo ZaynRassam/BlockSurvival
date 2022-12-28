@@ -61,7 +61,8 @@ public class EnemyMovement : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            logicManager.score++;
+            logicManager.kills++;
+            logicManager.increaseCash("Enemy");
         }
     }
 }

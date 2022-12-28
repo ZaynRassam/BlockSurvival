@@ -6,13 +6,9 @@ public class Score : MonoBehaviour
 {
     [SerializeField] GameObject sniper;
 
-    public int score;
-    public bool rareDropSpawned = false;
+    public int kills = 0;
+    public int cash = 0;
 
-    void Awake()
-    {
-        score = 0;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +19,13 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RareDrop();
+
     }
 
-    void RareDrop()
+    public void increaseCash(string enemyType)
     {
-        if (score > 1 && !rareDropSpawned)
-        {
-            GameObject spawnedPrefab = Instantiate(sniper, new Vector2(7, -1), Quaternion.identity);
-            rareDropSpawned = true;
+        if (enemyType == "Enemy") {
+            cash += 100;
         }
     }
 }
