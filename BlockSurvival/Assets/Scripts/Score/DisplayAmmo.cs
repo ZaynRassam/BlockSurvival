@@ -9,6 +9,7 @@ public class DisplayAmmo : MonoBehaviour
 
     public ActiveWeapon activeWeapon;
     public SniperClass sniperClass;
+    public ShotgunClass shotgunClass;
     public PistolClass pistolClass;
 
     private int clipAmmo;
@@ -21,6 +22,11 @@ public class DisplayAmmo : MonoBehaviour
         {
             clipAmmo = sniperClass.sniperClipAmmo;
             totalAmmo = sniperClass.sniperTotalAmmo;
+        }
+        else if (activeWeapon.shotgunActive)
+        {
+            clipAmmo = shotgunClass.shotgunClipAmmo;
+            totalAmmo = shotgunClass.shotgunTotalAmmo;
         }
         else
         {

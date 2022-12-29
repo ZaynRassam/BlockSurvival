@@ -7,6 +7,7 @@ public class SniperClass : MonoBehaviour
     public Transform playerTransform;
     public GameObject sniperBullet;
     public ActiveWeapon activeWeaponScript;
+    [System.NonSerialized] public int sniperClipAmmoForReset = 3;
     [System.NonSerialized] public int sniperTotalAmmoForReset = 20;
     private int sniperMagazineSize = 3;
     public int sniperClipAmmo = 3;
@@ -31,7 +32,7 @@ public class SniperClass : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.R) || sniperClipAmmo == 0) && sniperTotalAmmo > 0)
         {
-            Reload();
+            StartCoroutine(Reload());
         }
     }
 
@@ -47,8 +48,10 @@ public class SniperClass : MonoBehaviour
         }
     }
 
-    void Reload()
+    IEnumerator Reload()
     {
+        yield return new WaitForSecondsRealtime(2);
+
         int bulletsMissing = sniperMagazineSize - sniperClipAmmo;
         if (sniperTotalAmmo >= bulletsMissing)
         {
@@ -60,5 +63,11 @@ public class SniperClass : MonoBehaviour
             sniperClipAmmo += sniperTotalAmmo;
             sniperTotalAmmo = 0;
         }
+    }
+
+    public void SniperResetAmmo()
+    {
+        sniperClipAmmo = sniperClipAmmoForReset;
+        sniperTotalAmmo = sniperTotalAmmoForReset;
     }
 }

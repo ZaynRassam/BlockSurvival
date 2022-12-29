@@ -9,9 +9,12 @@ public class EnemyMovement : MonoBehaviour
     private Score logicManager;
     public int health = 2;
     private float headshotChance = 0.2f;
+    private Transform enemyPosition;
+    public GameObject deathParticles;
 
     void Start()
     {
+        enemyPosition = gameObject.GetComponent<Transform>();
         logicManager = GameObject.FindWithTag("LogicManager").GetComponent<Score>();
     }
     private void Update()
@@ -61,6 +64,8 @@ public class EnemyMovement : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            GameObject particles = Instantiate(deathParticles, enemyPosition.position, enemyPosition.rotation);
+            Destroy(particles);
             logicManager.kills++;
             logicManager.increaseCash("Enemy");
         }

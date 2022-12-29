@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuySniper : MonoBehaviour
+public class BuyShotgun : MonoBehaviour
 {
     public ActiveWeapon activeWeapon;
     public Score score;
-    public SniperClass sniperClass;
-    private int sniperCost = 500;
-    private bool nearSniper = false;
+    public ShotgunClass shotgunClass;
+    private int shotgunCost = 500;
+    private bool nearShotgun = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,21 +19,23 @@ public class BuySniper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (nearSniper)
+        if (nearShotgun)
         {
-            BuyingSniper();
+            BuyingShotgun();
         }
     }
 
-    void BuyingSniper()
+    void BuyingShotgun()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!activeWeapon.sniperActive)
+            if (!activeWeapon.shotgunActive)
             {
-                if (score.cash >= sniperCost)
+                if (score.cash >= shotgunCost)
                 {
-                    activeWeapon.PickedUpSniper();
+                    activeWeapon.PickedUpShotgun();
+                    shotgunClass.ShotgunResetAmmo();
+
                 }
                 else
                 {
@@ -42,9 +44,9 @@ public class BuySniper : MonoBehaviour
             }
             else
             {
-                if (sniperClass.sniperTotalAmmo < sniperClass.sniperTotalAmmoForReset)
+                if (shotgunClass.shotgunTotalAmmo < shotgunClass.shotgunTotalAmmoForReset)
                 {
-                    activeWeapon.PickedUpSniperAmmo();
+                    activeWeapon.PickedUpShotgunAmmo();
                 }
                 else
                 {
@@ -58,7 +60,7 @@ public class BuySniper : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            nearSniper = true;
+            nearShotgun = true;
         }
     }
 
@@ -66,7 +68,7 @@ public class BuySniper : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            nearSniper = false;
+            nearShotgun = false;
         }
     }
 }

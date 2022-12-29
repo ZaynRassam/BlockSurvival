@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField] GameObject sniper;
 
     public int kills = 0;
     public int cash = 0;

@@ -31,7 +31,7 @@ public class PistolClass : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.R) || pistolClipAmmo == 0) && pistolTotalAmmo > 0)
         {
-            Reload();
+            StartCoroutine(Reload());
         }
     }
 
@@ -47,8 +47,11 @@ public class PistolClass : MonoBehaviour
         }
     }
 
-    void Reload()
+
+    IEnumerator Reload()
     {
+        yield return new WaitForSecondsRealtime(2);
+
         int bulletsMissing = pistolMagazineSize - pistolClipAmmo;
         if (pistolTotalAmmo >= bulletsMissing)
         {
